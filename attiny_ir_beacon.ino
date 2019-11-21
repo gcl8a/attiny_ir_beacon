@@ -5,7 +5,7 @@
  * 
  * flashes on OC1A on PB1, which is physical pin 6 on the 8-pin DIP
  * supplemental flash at 1/1000 on PB4 (pin 3)
- * button on PB3 (pin 2)
+ * button on PB3 (pin 2) to cycle through modes
  */
 #include <button.h>
 
@@ -57,7 +57,7 @@ void loop()
         TCCR1 = 0x95; OCR1C = 49; // 5 kHz
         break;
       case 2: 
-        TCCR1 = 0x00; PORTB |= (1 << PB1); //0 Hz
+        TCCR1 = 0x00; PORTB |= (1 << PB1); //0 Hz, lit
         PORTB |= (1 << PB4); //turn on LED
         break;     
     }
@@ -71,5 +71,6 @@ ISR(TIMER1_COMPA_vect)
 {
   counter++;  
   counter %= 1000;
-  if(!counter) PORTB ^= (1 << PB4); //toggle indicator LED on pin 3
+  if(!counter) PINB = (1 << PB4); //toggle indicator LED on pin 3
+  //PORTB ^= (1 << PB4); //toggle indicator LED on pin 3
 } 
