@@ -71,6 +71,6 @@ ISR(TIMER1_COMPA_vect)
 {
   counter++;  
   counter %= 1000;
-  if(!counter) PINB = (1 << PB4); //toggle indicator LED on pin 3
+  if(!counter) PINB = (1 << PB4); //toggle indicator LED on pin 3 (datasheet says this works -- never tried it)
   //PORTB ^= (1 << PB4); //toggle indicator LED on pin 3
 } 
